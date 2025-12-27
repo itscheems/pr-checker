@@ -44,19 +44,27 @@ impl Engine {
 			all_violations.extend(violations);
 		}
 
-		// Ensure title type aligns with kind/* label (best-effort)
-		if let Some(expected) = expected_label_for_title(&pr.title)
-			&& !has_label(&pr, expected)
+		// Ensure title type aligns with kind/* label
+		// Only check if required labels are configured and non-empty
+		if let Some(labels_rule) = &self.config.labels
+			&& let Some(required) = &labels_rule.required
+			&& !required.is_empty()
 		{
-			all_violations.push(Violation {
-				message: format!(
-					"Title type '{}' requires label '{}', current labels: [{}], title: '{}'",
-					title_type(&pr.title),
-					expected,
-					format_labels(&pr),
-					pr.title
-				),
-			});
+			// Check if title type's expected label is in required list
+			if let Some(expected) = expected_label_for_title(&pr.title)
+				&& required.contains(&expected.to_string())
+				&& !has_label(&pr, expected)
+			{
+				all_violations.push(Violation {
+					message: format!(
+						"Title type '{}' requires label '{}', current labels: [{}], title: '{}'",
+						title_type(&pr.title),
+						expected,
+						format_labels(&pr),
+						pr.title
+					),
+				});
+			}
 		}
 
 		// Prepend a context line with title and labels if there are violations

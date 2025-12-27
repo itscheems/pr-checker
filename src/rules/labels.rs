@@ -19,7 +19,12 @@ use crate::rules::{RuleResult, Violation};
 pub fn check_labels(pr: &PullRequest, rule: &LabelRule) -> RuleResult {
 	let mut violations = Vec::new();
 
+	// If required is empty or None, skip all label checks
 	if let Some(required) = &rule.required {
+		if required.is_empty() {
+			return violations;
+		}
+
 		let pr_label_names: Vec<String> = pr.labels.iter().map(|l| l.name.clone()).collect();
 
 		for required_label in required {
@@ -99,6 +104,17 @@ mod tests {
 	fn test_no_required_labels() {
 		let pr = create_pr_with_labels(vec!["kind/bug"]);
 		let rule = LabelRule { required: None };
+
+		let violations = check_labels(&pr, &rule);
+		assert!(violations.is_empty());
+	}
+
+	#[test]
+	fn test_empty_required_labels() {
+		let pr = create_pr_with_labels(vec!["kind/bug"]);
+		let rule = LabelRule {
+			required: Some(vec![]),
+		};
 
 		let violations = check_labels(&pr, &rule);
 		assert!(violations.is_empty());
