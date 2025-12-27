@@ -52,7 +52,7 @@ Create `.github/pr-checker.yml`.
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
   min_length: 10
 
 labels:
@@ -91,7 +91,7 @@ labels:
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert):"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
   min_length: 10
   max_length: 100
 
@@ -124,7 +124,7 @@ labels:
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert):"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
   min_length: 10
 ```
 

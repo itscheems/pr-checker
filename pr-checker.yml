@@ -1,7 +1,7 @@
 title:
   # Regex pattern to match against PR title
   # Example: Conventional Commits format
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
 
   # Minimum length of the title
   min_length: 10
