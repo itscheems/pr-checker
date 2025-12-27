@@ -12,6 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-	println!("Hello, world!");
-}
+pub mod schema;
+
+pub use schema::{Config, LabelRule, TitleRule};

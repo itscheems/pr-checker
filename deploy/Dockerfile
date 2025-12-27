@@ -23,7 +23,7 @@ WORKDIR /app
 # ────────────────────────────────
 FROM chef AS planner
 COPY Cargo.toml Cargo.lock ./
-COPY crates ./crates
+COPY src ./src
 RUN cargo chef prepare --recipe-path recipe.json
 
 # ────────────────────────────────
@@ -33,7 +33,7 @@ FROM chef AS builder
 COPY --from=planner /app/recipe.json recipe.json
 RUN cargo chef cook --release --recipe-path recipe.json --locked
 COPY . .
-RUN cargo build --release --package cmd
+RUN cargo build --release
 
 # ────────────────────────────────
 # Runtime stage
@@ -48,15 +48,11 @@ RUN addgroup -g 1000 appuser && \
     adduser -D -u 1000 -G appuser appuser
 
 WORKDIR /app
-COPY --from=builder /app/target/release/cmd /app/cmd
+COPY --from=builder /app/target/release/pr-checker /app/pr-checker
 
 # Set ownership
 RUN chown -R appuser:appuser /app
 # Switch to non-root user
 USER appuser
 
-# TODO:
-# Expose port
-# Other configurations
-
-ENTRYPOINT ["/app/cmd"]
+ENTRYPOINT ["/app/pr-checker"]

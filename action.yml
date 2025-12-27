@@ -1,0 +1,16 @@
+name: "PR Checker"
+description: "Validate pull request rules (title pattern, labels, etc.)"
+author: "chenjjiaa"
+branding:
+  icon: "check-circle"
+  color: "green"
+
+runs:
+  using: docker
+  image: deploy/Dockerfile
+
+inputs:
+  config:
+    description: "Path to PR checker config file"
+    required: false
+    default: ".github/pr-checker.yml"
