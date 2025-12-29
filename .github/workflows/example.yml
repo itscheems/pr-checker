@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: PR Checker
-        uses: itscheems/pr-checker@v0.1.0
+        uses: itscheems/pr-checker@v0.1.1
         with:
           config: .github/pr-checker.yml
         env:
