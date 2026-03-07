@@ -15,7 +15,7 @@
 # ────────────────────────────────
 # Basic image
 # ────────────────────────────────
-FROM lukemathwalker/cargo-chef:0.1.75-rust-1.93.1-alpine AS chef
+FROM lukemathwalker/cargo-chef:0.1.77-rust-1.94.0-alpine AS chef
 WORKDIR /app
 
 # ────────────────────────────────
